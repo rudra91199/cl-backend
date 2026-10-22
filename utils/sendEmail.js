@@ -1,28 +1,21 @@
 import nodemailer from 'nodemailer';
 
-export const sendEmail = async ({ email, subject, message }) => {
-  // Fallback for local testing if Gmail App Password isn't configured yet
-  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-    console.log('\n========================================');
-    console.log(`📧 [DEV EMAIL INTERCEPTOR] To: ${email}`);
-    console.log(`Subject: ${subject}`);
-    console.log(`Message:\n${message}`);
-    console.log('========================================\n');
-    return;
-  }
-
+export const sendEmail = async ({ email, subject, message, html }) => {
   const transporter = nodemailer.createTransport({
-    service: 'Gmail',
+    service: 'gmail', // or your email provider
     auth: {
       user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
+      pass: process.env.EMAIL_PASS
+    }
   });
 
-  await transporter.sendMail({
-    from: `"Monolith Terminal" <${process.env.EMAIL_USER}>`,
+  const mailOptions = {
+    from: `"ClashLab Support" <${process.env.EMAIL_USER}>`,
     to: email,
-    subject,
+    subject: subject,
     text: message,
-  });
+    html: html || message // Use HTML if provided, fallback to plain text
+  };
+
+  await transporter.sendMail(mailOptions);
 };
