@@ -21,7 +21,7 @@ pnpm-debug.log*
 modules/clan/Stored_Clan_Wars-1792437494513.json
 modules/player/playerJsonFormat.txt
 modules/player/playersnapshot.json
-utils/fullbackend code for AI.txt
+/fullbackend code for AI.txt
 
 # Optional: If you want to ignore ALL local JSON/Text dumps in modules automatically
 # modules/**/*.json
